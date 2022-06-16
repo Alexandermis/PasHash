@@ -1,22 +1,14 @@
 import sys
 import hashlib
-import webbrowser
+#import webbrowser
 
-from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
-
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+#from selenium import webdriver
+#from selenium.webdriver.firefox.options import Options
+#from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 def getUrl():
-
     return "https://www.spotify.com/"
-#     # Update. Better way to open Firefox in debugging mode (defaults to port 6000):
-#
-# #firefox.exe --start-debugger-server --profile C:\FirefoxTEMP
-#     #Connect to a existing firefox with –connect-existing and –marionette-port
-#     driver.get("https://www.youtube.com/watch?v=9ye7srmAnMU")
-#     print(driver.currenturl)
-#     return "https://studmail.htw-aalen.de/login.php"
+
 def startVal(a,b):
     if ((len(a) + len(b)) % 2 == 0):
         return a+b
@@ -55,11 +47,15 @@ def superHash(startval):
         hash.remove(hash[x % len(hash)])
     return startval
 if __name__ == '__main__':
-    if len(sys.argv)!= 2:
+    if len(sys.argv)!= 2 and len(sys.argv)!=3:
         exit(-1)
     else:
-        url=getUrl()
-        startval = startVal(url, sys.argv[1])
+        if len(sys.argv)==2:
+            startval = startVal(getUrl(), sys.argv[1])
+        else:
+            startval = startVal(sys.argv[2], sys.argv[1])
+
+
         startval=superHash(startval)
         if len(startval)==64:
             startval+=salt(startval)
